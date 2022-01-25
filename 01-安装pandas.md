@@ -26,7 +26,7 @@ pip install xlwt
 
 
 ```python
-#实例 - 使用 ndarrays 创建
+# 实例 - 使用 ndarrays 创建
 
 import pandas as pd
 
