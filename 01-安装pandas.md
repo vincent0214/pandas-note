@@ -1,5 +1,9 @@
 # 第1课 安装pandas
 
+## 0.安装`python`和`pip`
+
+https://www.python.org/
+
 ## 1.安装依赖
 
 安装`pandas`
