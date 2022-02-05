@@ -1,6 +1,13 @@
+## Pandas是什么
+> Pandas 库是一个免费、开源的第三方 Python 库，是 Python 数据分析必不可少的工具之一，它为 Python 数据分析提供了高性能，且易于使用的数据结构，即 Series 和 DataFrame。Pandas 自诞生后被应用于众多的领域，比如金融、统计学、社会科学、建筑工程等。
+>
+> Pandas 库基于 Python NumPy 库开发而来，因此，它可以与 Python 的科学计算库配合使用。Pandas 提供了两种数据结构，分别是 Series（一维数组结构）与 DataFrame（二维数组结构），这两种数据结构极大地增强的了 Pandas 的数据分析能力。在本套教程中，我们将学习 Python Pandas 的各种方法、特性以及如何在实践中运用它们。
+>
+> 出自: http://c.biancheng.net/pandas/
 
-## 安装pandas
-```
+
+## 安装Pandas
+```bash
 pip install xlwt
 pip install pandas
 ```
@@ -9,23 +16,24 @@ pip install pandas
 
 ### 读取Excel
 
-- 常规读取
+#### 常规读取
+
 ```python
 import pandas as pd
 
 table = pd.read_excel(path)
 ```
 
-- 读取无标题的excel
+#### 读取无标题的excel
 ```python
 import pandas as pd
 
-table = pd.read_excel(path, header=None) # header=No
+table = pd.read_excel(path, header=None) 
 ```
 
 这是无标题的excel表格
 
-- 错位读取
+####  错位读取
 
 ```python
 import pandas as pd
@@ -44,6 +52,34 @@ table = pd.read_csv(path, sep="\s*,\s*")  # sep="\s*,\s*"去除csv空格
 ```
 
 
+
+## 保存文件
+### 保存excel文件
+```python
+import pandas as pd
+
+table1 = pd.read_excel("./student1.xlsx")
+table1.to_excel("./table.xlsx", index=False, sheet_name="sheet1") 
+```
+
+- index=False不写`index`列
+
+### 同时写多个sheet
+```python
+import pandas as pd
+
+table1 = pd.read_excel("./student1.xlsx")
+table2 = pd.read_excel("./student2.xlsx")
+table3 = pd.read_excel("./student3.xlsx")
+
+writer = pd.ExcelWriter(r"./temp/" + filename)
+table1.to_excel(writer, index=False, sheet_name="sheet1") 
+table2.to_excel(writer, index=False, sheet_name="sheet2")
+table3.to_excel(writer, index=False, sheet_name="sheet3")
+writer.save()
+writer.close()
+```
+
 ## 查询数据
 ### 方法1
 ```python
@@ -57,11 +93,11 @@ new_table = table.loc[table["列名"].apply(lambda x: x == "数据值")]
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 new_table = table.loc[table["语文"] < 60]  # 返回语文少于60分的数据
 ```
 
-### 条件查询数据
+### 多条件查询
 ```python
 file = './excel/books.xlsx'
 books = pd.read_excel(file, index_col="id")
@@ -73,7 +109,7 @@ print(r)
 ## 行操作
 ### 追加其他表数据
 
-向下合并其他表的数据)
+向下合并其他表的数据
 
 ```python
 import pandas as pd
@@ -83,13 +119,33 @@ table2  = pd.read_excel("./student.xlsx", sheet_name="Sheet3")
 table3 = table1.append(table2).reset_index(drop=True) # 合并行,重新设置index
 ```
 
+动态合并多个表格(工具函数)
+```python
+import pandas as pd
+
+class PandasUtil:
+    @staticmethod
+    def merge_tables(tables):
+        """
+        合并表格(相同格式,上下合并)
+        """
+        result = None
+        for table in tables:
+            if result is None:
+                result = table
+                continue
+            result = result.append(table, ignore_index=True)
+        result.reset_index(drop=True)
+        return result
+```
+
 ### 新建新行
 
 添加新行,{"id":7, "name":"ken", "语文":100, "数学":90, "英语":70}
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx")
 stu = pd.Series({"id":7, "name":"ken", "语文":100, "数学":90, "英语":70})  # 新行数据
 students =students.append(stu, ignore_index=True ) # 追加新行
 print(students)
@@ -100,7 +156,7 @@ print(students)
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx")
 students.at[0,'name'] = "kelly" # 修改Ben1名称,改为"kelly"
 print(students)
 ```
@@ -113,7 +169,7 @@ print(students)
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx")
 students.iloc[0] = pd.Series({"id":100, "name":"Vincent", "语文":100})
 
 print(students)
@@ -125,7 +181,7 @@ print(students)
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx")
 new_student = pd.Series({"id":100, "name":"Boy1", "语文":100})  ### 插入的数据
 part1 =  students[:3]  # 第1到2行,
 part2 = students[3:] # 第3行到结尾行
@@ -144,7 +200,7 @@ print(students)
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 remove_index = table.loc[table["列明"] == "数据值"].index
 table.drop(index=remove_index, inplace=True)  # 按条件删除数据
 
@@ -155,11 +211,18 @@ table.drop(index=remove_index, inplace=True)  # 按条件删除数据
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 remove_index = table[(table["收/支"] == "支出") & (table["交易状态"] == "交易关闭")].index
 table.drop(index=remove_index, inplace=True)  # 按条件删除数据
 ```
 
+#### 删除空行
+```python
+import pandas as pd
+
+table = pd.read_excel("./student.xlsx")
+table.dropna(subset=["交易时间"], inplace=True)  # 删除交易时间为空的数据
+```
 
 
 ### 排序
@@ -217,7 +280,7 @@ print(books)
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx")
 students.drop_duplicates(subset=["name"], inplace=True) # 删除重复数据
 print(students)
 
@@ -325,7 +388,7 @@ print(r)
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 for index, row in df.iterrows():
     print(index)
     print(row["c1"])
@@ -341,7 +404,7 @@ for index, row in df.iterrows():
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 table["数学"] = 100
 ```
 
@@ -350,7 +413,7 @@ table["数学"] = 100
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 table.drop(columns=['语文'], inplace=True) # 删除列
 ```
 
@@ -360,7 +423,7 @@ table.drop(columns=['语文'], inplace=True) # 删除列
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx")
 students.insert(1, column="年龄", value=100) # 插入列
 print(students)
 ```
@@ -384,7 +447,7 @@ def change_col_place(table, name, new_place, new_name=None):
      else:
          table.insert(new_place, column=new_name, value=val)  # 插入列
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 change_col_place(table, "收/支", 0, "收/支")  
 ```
 
@@ -393,7 +456,7 @@ change_col_place(table, "收/支", 0, "收/支")
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 table.rename(columns={"旧列名1":"新列名1", "旧列名2":"新列名"}, inplace=True) # 修改列名 
 ```
 
@@ -407,7 +470,7 @@ table.rename(columns={"旧列名1":"新列名1", "旧列名2":"新列名"}, inpl
 ```python
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx")
 table["金额"] =  table["金额"].apply(lambda x: x.replace("¥", ""))
 ```
 
@@ -465,7 +528,7 @@ class FileUtil:
         def _scan_file(path):
             for file_name in os.listdir(path):
                 file_path = path + "/" + file_name
-                if os.path.isdir(file_path):   # r
+                if os.path.isdir(file_path):   
                     _scan_file(file_path)
                 else:
                     file = File(file_path)
@@ -490,3 +553,7 @@ class File:
         self.path = path
 ```
 
+## 其他网站
+
+- http://c.biancheng.net/pandas/what-is-pandas.html
+- https://www.runoob.com/pandas/pandas-tutorial.html
