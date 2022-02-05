@@ -213,23 +213,16 @@ print(r)
 
 ![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221183524.png)
 
+### 遍历数据
+遍历每一行数据
+```python
+import pandas as pd
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+for index, row in df.iterrows():
+    print(index)
+    print(row["c1"])
+```
 
 
 
