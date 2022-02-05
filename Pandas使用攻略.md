@@ -25,8 +25,6 @@ table = pd.read_excel(path, header=None) # header=No
 
 这是无标题的excel表格
 
-![](E:\code\my_code\excel_code\bill_record_reader\Pandas常用API.assets\20211218223652.png)
-
 - 错位读取
 
 ```python
@@ -34,8 +32,6 @@ import pandas as pd
 
 table = pd.read_excel(path, header=1) #由第二行开始读取
 ```
-
-![](E:\code\my_code\excel_code\bill_record_reader\Pandas常用API.assets\20211218223648.png)
 
 ### 读取csv
 
@@ -143,7 +139,8 @@ print(students)
 
 按条件删除行数据
 
-单条件删除
+#### 单条件删除
+
 ```python
 import pandas as pd
 
@@ -153,7 +150,8 @@ table.drop(index=remove_index, inplace=True)  # 按条件删除数据
 
 ```
 
-多条件删除
+#### 多条件删除
+
 ```python
 import pandas as pd
 
@@ -166,15 +164,124 @@ table.drop(index=remove_index, inplace=True)  # 按条件删除数据
 
 ### 排序
 
-https://gitee.com/vincent0214/pandas-notes/blob/master/07-%E6%8E%92%E5%BA%8F.md
+
+#### 单值排序
+
+按价格倒序排序
+
+ascending=False 为倒序排序
+
+```python
+import pandas as pd
+
+file = './excel/books.xlsx'
+books = pd.read_excel(file)
+books.sort_values(by="价格", inplace=True, ascending=False)  # 排序
+print(books)
+
+```
+
+![image-20211219124701631](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211219153526.png)
+
+#### 多值排序
+
+![image-20211219125152086](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211219153528.png)
+
+先按`是否值得`排序,再按`价格`排序
+
+```python
+file = './excel/books.xlsx'
+books = pd.read_excel(file, index_col="id")
+books.sort_values(by=["是否值得", "价格"], inplace=True, ascending=[False, True])  # 排序
+print(books)
+
+```
+
+![image-20211219125513520](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211219153530.png)
+
+
+
+
 
 
 
 ### 去重, 查找重复数据
 
-https://gitee.com/vincent0214/pandas-notes/blob/master/21-%E6%B6%88%E9%99%A4%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE__%E5%AE%9A%E4%BD%8D%E6%95%B0%E6%8D%AE.md
+[原文链接](https://gitee.com/vincent0214/pandas-notes/blob/master/21-%E6%B6%88%E9%99%A4%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE__%E5%AE%9A%E4%BD%8D%E6%95%B0%E6%8D%AE.md)
 
 
+#### 去掉重复数据
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221123950.png)
+
+```python
+import pandas as pd
+
+students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+students.drop_duplicates(subset=["name"], inplace=True) # 删除重复数据
+print(students)
+
+```
+
+- subset=["name"]  查询条件,可以是多个列例如 subset=["name", "语文", "数学", "英语"]
+
+- keep="first"   默认保留开头
+
+  
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221123956.png)
+
+#### 查找重复项
+
+- 检查所有行是否重复
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221130755.png)
+
+```python
+import pandas as pd
+
+students = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+dupe = students.duplicated(subset=["name"])
+print(dupe)
+```
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221183505.png)
+
+
+
+- 查询重复行
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221183507.png)
+
+```python
+import pandas as pd
+
+students = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+dupe = students.duplicated(subset=["name"])  
+print(dupe[dupe==True])
+```
+
+显示7-11行是重复数据
+
+序列是由0开始数的,index为6表示excel表中的第7行数据
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221183509.png)
+
+
+
+用`iloc[index]`定位重复数据
+
+```python
+import pandas as pd
+
+students = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+dupe = students.duplicated(subset=["name"])  
+dupe = dupe[dupe==True]
+print(students.iloc[dupe.index])
+
+```
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221183513.png)
 
 ### 定位数据
 
@@ -358,7 +465,7 @@ class FileUtil:
         def _scan_file(path):
             for file_name in os.listdir(path):
                 file_path = path + "/" + file_name
-                if os.path.isdir(file_path):
+                if os.path.isdir(file_path):   # r
                     _scan_file(file_path)
                 else:
                     file = File(file_path)
@@ -373,8 +480,8 @@ class FileUtil:
         清空文件夹
         """
         if os.path.exists(path):
-            shutil.rmtree(path)
-        os.mkdir(path)
+            shutil.rmtree(path)   # 删除目录
+        os.mkdir(path)  # 创建目录
 
 
 class File:
