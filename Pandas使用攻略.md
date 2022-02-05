@@ -65,6 +65,14 @@ table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
 new_table = table.loc[table["语文"] < 60]  # 返回语文少于60分的数据
 ```
 
+### 条件查询数据
+```python
+file = './excel/books.xlsx'
+books = pd.read_excel(file, index_col="id")
+r = books.loc[books['价格'].apply(lambda x: x < 200)] \ 
+    .loc[books['价格'].apply(lambda x: x > 100)]
+print(r)
+```
 
 ## 行操作
 ### 追加其他表数据
