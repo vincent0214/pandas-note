@@ -9,7 +9,8 @@ Panda笔记是看完<<Pandas玩转Excel>>视频后记录的课堂笔记
 
 - [B站地址](https://www.bilibili.com/video/BV1hk4y1C73S)
 
-
+### 我总结的攻略
+- [Pandas使用攻略](./Pandas使用攻略.md)
 ### 目录
 - [00-常用的os库函数](./00-常用的os库函数.md)
 - [01-安装pandas](./01-安装pandas.md)
