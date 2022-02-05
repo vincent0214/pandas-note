@@ -1,4 +1,4 @@
-# 第2课
+# 第2课 读取Excel或Csv文件
 
 ## 1 查看有多少行和多少列
 
@@ -75,8 +75,8 @@ print(people.head())
 
 
 
-#### 如果excel表没有标题头部
-
+## 6.读取没有表头excel
+如果excel表没有标题头部
 ![image-20211218215649992](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211218223652.png)
 
 设置`header=None`即可
