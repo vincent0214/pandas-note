@@ -408,6 +408,13 @@ table = pd.read_excel("./student.xlsx")
 table["数学"] = 100
 ```
 
+### 判断列是否存在
+```python
+import pandas as pd
+
+table = pd.read_excel("./student.xlsx")
+print("数学" in table.columns)
+```
 
 ### 删除列
 ```python
