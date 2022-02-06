@@ -9,6 +9,7 @@
 ## 安装Pandas
 ```bash
 pip install xlwt
+pip install openpyxl
 pip install pandas
 ```
 
