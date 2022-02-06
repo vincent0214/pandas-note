@@ -24,14 +24,15 @@ import pandas as pd
 table = pd.read_excel(path)
 ```
 
-#### 读取无标题的excel
+#### 读取无表头的excel
+
+读取无表头的excel表格
+
 ```python
 import pandas as pd
 
 table = pd.read_excel(path, header=None) 
 ```
-
-这是无标题的excel表格
 
 ####  错位读取
 
@@ -398,8 +399,8 @@ for index, row in df.iterrows():
 
 ## 列操作
 
-### 追加列
-添加列
+### 增加列
+追加列
 
 ```python
 import pandas as pd
@@ -512,6 +513,85 @@ print(studentr)
 ```
 ![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221102441.png)
 
+
+## 求总和和求平均值
+
+### 按行求和
+
+```
+pandas.DataFrame.sum
+```
+
+> 原文地址: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sum.html#pandas-dataframe-sum
+
+![image-20211221120420668](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221123913.png)
+
+
+
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121552.png)
+```python
+import pandas as pd
+
+student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+row_sum = student[["语文","数学","英语"]].sum(axis=1) # axis=1按行计算.
+print(type(student[["语文","数学","英语"]])) # 输出: Dataframe
+print(row_sum) 
+```
+
+![image-20211221115936128](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121556.png)
+
+
+
+###  按行求平均值
+
+![image-20211221120816906](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121558.png)
+
+```python
+import pandas as pd
+
+student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+row_avg = student[["语文","数学","英语"]].mean(axis=1) # axis=1按行计算.
+print(row_avg) 
+```
+
+![image-20211221120834124](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121559.png)
+
+
+
+### 计算列总和
+
+![image-20211221121040193](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121602.png)
+
+```python
+import pandas as pd
+
+student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+col_sum = student[["语文","数学","英语"]].sum(axis=0) # axis=1按行计算.
+print(col_sum) 
+```
+
+![image-20211221121158046](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121603.png)
+
+### 计算列平均
+
+![image-20211221121309020](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121605.png)
+
+```python
+import pandas as pd
+
+student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+col_avg = student[["语文","数学","英语"]].mean(axis=0) # axis=1按行计算.
+print(col_avg) 
+```
+
+![image-20211221121439004](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121606.png)
+
+## 多表联合（从VLOOKUP到JOIN）
+https://gitee.com/vincent0214/pandas-notes/blob/master/17-%E5%A4%9A%E8%A1%A8%E8%81%94%E5%90%88%EF%BC%88%E4%BB%8EVLOOKUP%E5%88%B0JOIN%EF%BC%89.md
+
+
+## 旋转数据表(行列转换)
+https://gitee.com/vincent0214/pandas-notes/blob/master/17-%E5%A4%9A%E8%A1%A8%E8%81%94%E5%90%88%EF%BC%88%E4%BB%8EVLOOKUP%E5%88%B0JOIN%EF%BC%89.md
 
 
 ## 常用的文件操作函数
