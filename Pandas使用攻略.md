@@ -410,6 +410,27 @@ table = pd.read_excel("./student.xlsx")
 table["数学"] = 100
 ```
 
+### 列运算
+计算新列,列计算(计算列)
+
+```python
+import pandas as pd
+
+file = './excel/books.xlsx'
+books = pd.read_excel(file)
+books["优惠价"] = books["价格"] * books["折扣"]   
+```
+
+使用匿名函数, 计算新列
+```python
+import pandas as pd
+
+file = './excel/books.xlsx'
+books = pd.read_excel(file, index_col="id")
+books["价格"] = books["价格"].apply(lambda x: x + 2)   
+```
+
+
 ### 判断列是否存在
 ```python
 import pandas as pd
