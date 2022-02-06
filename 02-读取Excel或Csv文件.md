@@ -106,7 +106,15 @@ print(people.columns)
 
 ![image-20211218220347155](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211218223656.png)
 
+## 7. 读取csv
 
+去除csv空格(去空格读取)
+
+```python
+import pandas as pd
+
+table = pd.read_csv(path, sep="\s*,\s*")  # sep="\s*,\s*"去除csv空格
+```
 
 
 

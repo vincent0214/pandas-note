@@ -1,7 +1,4 @@
 # 第17课  多表联合（从VLOOKUP到JOIN）
-
-
-
 ## 1 原生excel查找其它sheet中的数据,vlookup公式
 
 Sheet1的数据

@@ -1,4 +1,4 @@
-# 第1课 安装pandas
+# 第1课 安装Pandas
 
 ## 0.安装`python`和`pip`
 

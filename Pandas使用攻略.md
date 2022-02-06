@@ -43,7 +43,7 @@ table = pd.read_excel(path, header=1) #由第二行开始读取
 
 ### 读取csv
 
-去除csv空格
+去除csv空格(去空格读取)
 
 ```python
 import pandas as pd
