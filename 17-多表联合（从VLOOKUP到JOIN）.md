@@ -128,3 +128,36 @@ print(r)
 
 
 
+##  4. 向下合并其他表的数据
+
+### 追加其他表数据
+
+向下合并其他表的数据
+
+```python
+import pandas as pd
+
+table1 = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+table2  = pd.read_excel("./student.xlsx", sheet_name="Sheet3")
+table3 = table1.append(table2).reset_index(drop=True) # 合并行,重新设置index
+```
+
+动态合并多个表格(工具函数)
+```python
+import pandas as pd
+
+class PandasUtil:
+    @staticmethod
+    def merge_tables(tables):
+        """
+        合并表格(相同格式,上下合并)
+        """
+        result = None
+        for table in tables:
+            if result is None:
+                result = table
+                continue
+            result = result.append(table, ignore_index=True)
+        result.reset_index(drop=True)
+        return result
+```
