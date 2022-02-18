@@ -26,8 +26,7 @@ table = pd.read_excel(path)
 ```
 
 #### 读取无表头的excel
-
-读取无表头的excel表格
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211218223652.png)
 
 ```python
 import pandas as pd
@@ -36,11 +35,11 @@ table = pd.read_excel(path, header=None)
 ```
 
 ####  错位读取
-
+![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211218223648.png)
 ```python
 import pandas as pd
 
-table = pd.read_excel(path, header=1) #由第二行开始读取
+table = pd.read_excel(path, header=2) # 由第三行开始读取
 ```
 
 ### 读取csv
@@ -264,10 +263,6 @@ print(books)
 ```
 
 ![image-20211219125513520](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211219153530.png)
-
-
-
-
 
 
 
@@ -610,14 +605,14 @@ print(col_avg)
 ![image-20211221121439004](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221121606.png)
 
 ## 多表联合（从VLOOKUP到JOIN）
-https://gitee.com/vincent0214/pandas-notes/blob/master/17-%E5%A4%9A%E8%A1%A8%E8%81%94%E5%90%88%EF%BC%88%E4%BB%8EVLOOKUP%E5%88%B0JOIN%EF%BC%89.md
+[多表联合（从VLOOKUP到JOIN）](https://gitee.com/vincent0214/pandas-notes/blob/master/17-%E5%A4%9A%E8%A1%A8%E8%81%94%E5%90%88%EF%BC%88%E4%BB%8EVLOOKUP%E5%88%B0JOIN%EF%BC%89.md)
 
 
 ## 旋转数据表(行列转换)
-https://gitee.com/vincent0214/pandas-notes/blob/master/17-%E5%A4%9A%E8%A1%A8%E8%81%94%E5%90%88%EF%BC%88%E4%BB%8EVLOOKUP%E5%88%B0JOIN%EF%BC%89.md
+[旋转数据表(行列转换)](https://gitee.com/vincent0214/pandas-notes/blob/master/17-%E5%A4%9A%E8%A1%A8%E8%81%94%E5%90%88%EF%BC%88%E4%BB%8EVLOOKUP%E5%88%B0JOIN%EF%BC%89.md)
 
 ##  分组统计,透视表
-https://gitee.com/vincent0214/pandas-notes/blob/master/23-%E5%88%86%E7%BB%84,%E9%80%8F%E8%A7%86%E8%A1%A8.md
+[分组统计,透视表](https://gitee.com/vincent0214/pandas-notes/blob/master/23-%E5%88%86%E7%BB%84,%E9%80%8F%E8%A7%86%E8%A1%A8.md)
 
 ## 常用的文件操作函数
 
