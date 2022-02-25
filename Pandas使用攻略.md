@@ -22,7 +22,7 @@ pip install pandas
 ```python
 import pandas as pd
 
-table = pd.read_excel(path)
+table = pd.read_excel("./student.xlsx")
 ```
 
 #### 读取无表头的excel
@@ -31,7 +31,7 @@ table = pd.read_excel(path)
 ```python
 import pandas as pd
 
-table = pd.read_excel(path, header=None) 
+table = pd.read_excel("./student.xlsx", header=None) 
 ```
 
 ####  错位读取
@@ -39,7 +39,7 @@ table = pd.read_excel(path, header=None)
 ```python
 import pandas as pd
 
-table = pd.read_excel(path, header=2) # 由第三行开始读取
+table = pd.read_excel("./student.xlsx", header=2) # 由第三行开始读取
 ```
 
 ### 读取csv
@@ -49,7 +49,7 @@ table = pd.read_excel(path, header=2) # 由第三行开始读取
 ```python
 import pandas as pd
 
-table = pd.read_csv(path, sep="\s*,\s*")  # sep="\s*,\s*"去除csv空格
+table = pd.read_csv("./student.xlsx", sep="\s*,\s*")  # sep="\s*,\s*"去除csv空格
 ```
 
 
@@ -59,7 +59,7 @@ table = pd.read_csv(path, sep="\s*,\s*")  # sep="\s*,\s*"去除csv空格
 ```python
 import pandas as pd
 
-table1 = pd.read_excel("./student1.xlsx")
+table1 = pd.read_excel("./student.xlsx")
 table1.to_excel("./table.xlsx", index=False, sheet_name="sheet1") 
 ```
 
@@ -73,7 +73,7 @@ table1 = pd.read_excel("./student1.xlsx")
 table2 = pd.read_excel("./student2.xlsx")
 table3 = pd.read_excel("./student3.xlsx")
 
-writer = pd.ExcelWriter(r"./temp/" + filename)
+writer = pd.ExcelWriter(r"./temp/output.xlsx")
 table1.to_excel(writer, index=False, sheet_name="sheet1") 
 table2.to_excel(writer, index=False, sheet_name="sheet2")
 table3.to_excel(writer, index=False, sheet_name="sheet3")
@@ -87,7 +87,7 @@ writer.close()
 ```python
 import pandas as pd
 
-table = pd.read_excel(path)
+table = pd.read_excel("./student.xlsx")
 new_table = table.loc[table["列名"].apply(lambda x: x == "数据值")]   
 ```
 
@@ -159,7 +159,7 @@ print(students)
 import pandas as pd
 
 students = pd.read_excel("./student.xlsx")
-students.at[0,'name'] = "kelly" # 修改Ben1名称,改为"kelly"
+students.at[0, 'name'] = "kelly" # 修改Ben1名称,改为"kelly"
 print(students)
 ```
 
@@ -284,7 +284,7 @@ print(students)
 
 ```
 
-- subset=["name"]  查询条件,可以是多个列例如 subset=["name", "语文", "数学", "英语"]
+- subset=["name"]  查询条件, 可以是多个列例如 subset=["name", "语文", "数学", "英语"]
 
 - keep="first"   默认保留开头
 
@@ -301,7 +301,7 @@ print(students)
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
 dupe = students.duplicated(subset=["name"])
 print(dupe)
 ```
@@ -317,14 +317,14 @@ print(dupe)
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
 dupe = students.duplicated(subset=["name"])  
 print(dupe[dupe==True])
 ```
 
 显示7-11行是重复数据
 
-序列是由0开始数的,index为6表示excel表中的第7行数据
+序列是由0开始数的, index为6表示excel表中的第7行数据
 
 ![](https://markdown-1301532546.cos.ap-guangzhou.myqcloud.com/markdown/20211221183509.png)
 
@@ -335,7 +335,7 @@ print(dupe[dupe==True])
 ```python
 import pandas as pd
 
-students = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+students = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
 dupe = students.duplicated(subset=["name"])  
 dupe = dupe[dupe==True]
 print(students.iloc[dupe.index])
@@ -351,7 +351,7 @@ print(students.iloc[dupe.index])
 ```pyton
 import pandas as pd
 
-table = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
+table = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
 r = table.iloc[0]   # 获取第1行数据
 print(r)
 ```
@@ -372,7 +372,7 @@ print(r)
 要设置DataFream的index_col才能使用
 
 ```python
-df = pd.read_excel("./student.xlsx",sheet_name="Sheet2",index_col="name") # 需要设置index_col
+df = pd.read_excel("./student.xlsx", sheet_name="Sheet2", index_col="name") # 需要设置index_col
 r = df.loc["Dean"]
 print(r)
 ```
@@ -408,7 +408,7 @@ table["数学"] = 100
 ```
 
 ### 列运算
-计算新列,列计算(计算列)
+计算新列, 列计算(计算列)
 
 ```python
 import pandas as pd
@@ -507,7 +507,7 @@ table["金额"] =  table["金额"].apply(lambda x: x.replace("¥", ""))
 ```python
 import pandas as pd
 
-books = pd.read_excel("./books.xlsx",sheet_name="Sheet2")
+books = pd.read_excel("./books.xlsx", sheet_name="Sheet2")
 df = books['name'].str.split(expand=True) # 拆分name列
 books["first name"] = df[0]  # 增加列 first name
 books["last name"] = df[1]   # 增加列 last name
@@ -526,7 +526,7 @@ print(books)
 ```python
 import pandas as pd
 
-student = pd.read_excel("./student.xlsx",sheet_name="Sheet1")
+student = pd.read_excel("./student.xlsx", sheet_name="Sheet1")
 student["name"] = student["first name"] +" "+ student["first name"]
 print(studentr) 
 ```
@@ -551,9 +551,9 @@ pandas.DataFrame.sum
 ```python
 import pandas as pd
 
-student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
-row_sum = student[["语文","数学","英语"]].sum(axis=1) # axis=1按行计算.
-print(type(student[["语文","数学","英语"]])) # 输出: Dataframe
+student = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+row_sum = student[["语文", "数学", "英语"]].sum(axis=1) # axis=1按行计算.
+print(type(student[["语文", "数学", "英语"]])) # 输出: Dataframe
 print(row_sum) 
 ```
 
@@ -568,8 +568,8 @@ print(row_sum)
 ```python
 import pandas as pd
 
-student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
-row_avg = student[["语文","数学","英语"]].mean(axis=1) # axis=1按行计算.
+student = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+row_avg = student[["语文", "数学", "英语"]].mean(axis=1) # axis=1按行计算.
 print(row_avg) 
 ```
 
@@ -584,8 +584,8 @@ print(row_avg)
 ```python
 import pandas as pd
 
-student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
-col_sum = student[["语文","数学","英语"]].sum(axis=0) # axis=1按行计算.
+student = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+col_sum = student[["语文", "数学", "英语"]].sum(axis=0) # axis=1按行计算.
 print(col_sum) 
 ```
 
@@ -598,8 +598,8 @@ print(col_sum)
 ```python
 import pandas as pd
 
-student = pd.read_excel("./student.xlsx",sheet_name="Sheet2")
-col_avg = student[["语文","数学","英语"]].mean(axis=0) # axis=1按行计算.
+student = pd.read_excel("./student.xlsx", sheet_name="Sheet2")
+col_avg = student[["语文", "数学", "英语"]].mean(axis=0) # axis=1按行计算.
 print(col_avg) 
 ```
 
